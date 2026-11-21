@@ -48,8 +48,53 @@ The deployment report describes the same Flask application deployed in both regi
 - **Framework:** Flask (Python)
 - **Port:** `5000`
 - **Endpoints:** `/`, `/region`, and `/health`
-- **Application files:** `demo-app.py`, `requirements.txt`, and `README.md` stored in the regional S3 buckets.
+- **Application files in the original deployment report:** `demo-app.py`, `requirements.txt`, and `README.md` stored in the regional S3 buckets.
 - **Startup:** The report mentions a systemd service for automatic startup; its listed deployment steps also show starting the app with `python3 demo-app.py`.
+
+### Recreated Flask sample in this repository
+
+The `app.py` file is a simple, recreated example based on the three endpoints described in the project report. It is provided as a learning sample and is **not claimed to be the exact original `demo-app.py` source code** used during the AWS implementation.
+
+The application provides:
+
+- `/` — welcome message and current region.
+- `/region` — region information.
+- `/health` — basic health status.
+
+### Run the application on your computer
+
+1. Install Python 3.
+2. Open a terminal in the repository folder.
+3. (Optional) Create and activate a virtual environment.
+4. Install the required package:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+5. Start the application. On Windows PowerShell, set the region and run:
+
+   ```powershell
+   $env:AWS_REGION_NAME="Mumbai"
+   python app.py
+   ```
+
+   To simulate the Hyderabad instance instead:
+
+   ```powershell
+   $env:AWS_REGION_NAME="Hyderabad"
+   python app.py
+   ```
+
+   On Linux, use `export AWS_REGION_NAME="Mumbai"` (or `"Hyderabad"`) before running `python3 app.py`.
+
+6. Open these addresses in your browser:
+
+   - `http://127.0.0.1:5000/`
+   - `http://127.0.0.1:5000/region`
+   - `http://127.0.0.1:5000/health`
+
+The default region is Mumbai if no environment variable is set. The app listens on port 5000 and on all network interfaces so it can run on a server. If you deploy it on EC2, allow inbound port 5000 only from the specific trusted IP addresses or network ranges needed for your test; do not expose it to everyone unnecessarily.
 
 ### Deployment process documented in the report
 
@@ -198,6 +243,8 @@ All three project documents are available in the `Documentation` folder:
 │   ├── Networking/
 │   ├── IAM/
 │   └── CloudWatch/
+├── app.py
+├── requirements.txt
 ├── README.md
 ├── LICENSE
 └── .gitignore
@@ -225,6 +272,7 @@ Through this project, I gained practical experience with:
 - The deployment report describes public read-only access for its regional demo buckets, while the security report documents Block Public Access enabled for its three security buckets. These may refer to separate buckets/configurations; the documents do not fully reconcile them.
 - Some S3 bucket names appear in different report sections for the monitoring, regional architecture, and security examples. They have been kept in their original contexts instead of assuming they refer to the same set of buckets.
 - The deployment report mentions systemd for automatic startup but lists a direct `python3 demo-app.py` start command. Both details are retained without assuming a systemd unit was definitely configured.
+- The `app.py` in this repository is a recreated learning sample based on the documented endpoints, not a verified copy of the original `demo-app.py`.
 - Account-specific identifiers have intentionally been omitted from this public README.
 
 ## Author

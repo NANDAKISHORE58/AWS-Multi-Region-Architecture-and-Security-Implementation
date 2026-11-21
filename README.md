@@ -41,6 +41,50 @@ The architecture and deployment reports describe the following setup:
 
 The reports describe VPC Peering between the two VPCs, route-table configuration for inter-region traffic, and security-group rules for SSH (port 22), HTTP (port 80), and the Flask application (port 5000).
 
+## Architecture diagram
+
+The following diagram summarizes the two-region architecture described in the project reports. It is a documentation diagram of the historical setup, not a live AWS deployment.
+
+```mermaid
+flowchart TB
+    USERS["Users / Web Browser"]
+
+    subgraph MUM["AWS Region: Mumbai (ap-south-1)"]
+        direction TB
+        subgraph MUMVPC["VPC: 10.0.0.0/16"]
+            M_IGW["Internet Gateway"]
+            M_EC2["EC2 t2.micro<br/>Flask application<br/>Port 5000"]
+            M_RT["Route table"]
+        end
+        M_S3[("Regional S3 bucket")]
+    end
+
+    subgraph HYD["AWS Region: Hyderabad (ap-south-2)"]
+        direction TB
+        subgraph HYDVPC["VPC: 10.1.0.0/16"]
+            H_IGW["Internet Gateway"]
+            H_EC2["EC2 t2.micro<br/>Flask application<br/>Port 5000"]
+            H_RT["Route table"]
+        end
+        H_S3[("Regional S3 bucket")]
+    end
+
+    PEER["VPC Peering connection"]
+    CW["Amazon CloudWatch<br/>S3 metrics, alarms, dashboard and logs"]
+
+    USERS --> M_IGW
+    USERS --> H_IGW
+    M_IGW --> M_EC2
+    H_IGW --> H_EC2
+    M_S3 -. "Application files" .-> M_EC2
+    H_S3 -. "Application files" .-> H_EC2
+    M_RT --- PEER
+    H_RT --- PEER
+    PEER -. "Private cross-region traffic" .-> MUMVPC
+    PEER -. "Private cross-region traffic" .-> HYDVPC
+    M_S3 -. "S3 monitoring" .-> CW
+```
+
 ## Flask application
 
 The deployment report describes the same Flask application deployed in both regions:

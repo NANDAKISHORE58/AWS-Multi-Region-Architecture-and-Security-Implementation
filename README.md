@@ -105,42 +105,59 @@ The architecture report describes monitoring for `my-student-project-bucket-2026
 
 ## Screenshots
 
-The repository includes screenshots from the original AWS work. A few are linked below; the remaining images are available in the repository root.
+Screenshots from the original AWS work are organized by service:
 
 ### S3 storage and regions
 
-![S3 bucket](Bucket.png)
+![S3 bucket](Screenshots/S3/Bucket.png)
 
-![S3 bucket region](Bucket%20Region.png)
+![S3 bucket region](Screenshots/S3/Bucket-Region.png)
 
-![Original bucket](Original%20Bucket.png)
+![Original bucket](Screenshots/S3/Original-Bucket.png)
 
-![Backup bucket](Backup%20Bucket.png)
+![Backup bucket](Screenshots/S3/Backup-Bucket.png)
 
 ### Networking and access control
 
-![VPC connection](VPC%20connection.png)
+![VPC connection](Screenshots/Networking/VPC-Connection.png)
 
-![Access control](Access%20Control.png)
+![Access control](Screenshots/IAM/Access-Control.png)
 
 ### CloudWatch monitoring
 
-![CloudWatch dashboard](Dashboard.png)
+![CloudWatch dashboard](Screenshots/CloudWatch/Dashboard.png)
 
-![CloudWatch graph](Graph.png)
+![CloudWatch graph](Screenshots/CloudWatch/Graph.png)
 
-![CloudWatch graphed metrics](GraphedMetrics.png)
+![CloudWatch graphed metrics](Screenshots/CloudWatch/Graphed-Metrics.png)
 
-![CloudWatch alarm](Alarm.png)
+![CloudWatch alarm](Screenshots/CloudWatch/Alarm.png)
 
-![CloudWatch alarm details](Alarmdetails.png)
+![CloudWatch alarm details](Screenshots/CloudWatch/Alarm-Details.png)
 
 ## Project documentation
 
-The two project reports are available in the repository:
+The two project reports are available in the `Documentation` folder:
 
-- [Cloud Security Implementation Report](Cloud%20Security%20Implementation%20Report%20-%20Google%20Docs.pdf)
-- [Final Project Report](final%20project%20-%20Google%20Docs.pdf)
+- [Cloud Security Implementation Report](Documentation/Cloud-Security-Implementation-Report.pdf)
+- [Final Project Report](Documentation/Final-Project-Report.pdf)
+
+## Repository structure
+
+```text
+.
+├── Documentation/
+│   ├── Cloud-Security-Implementation-Report.pdf
+│   └── Final-Project-Report.pdf
+├── Screenshots/
+│   ├── S3/
+│   ├── Networking/
+│   ├── IAM/
+│   └── CloudWatch/
+├── README.md
+├── LICENSE
+└── .gitignore
+```
 
 ## Key learning outcomes
 
